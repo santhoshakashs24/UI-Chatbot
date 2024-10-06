@@ -14,15 +14,15 @@ from kivymd import hooks_path as kivymd_hooks_path
 
 block_cipher = None
 
-icon_path = 'C:\\Users\\Akash\\Desktop\\lseg\\lseg_Chatbot\\resources\\images\\logo.ico'
+icon_path = 'D:\\Associate\\Desktop\\UI-Chatbot\\resources\\images\\logo.ico'
 
 a = Analysis(
-    ['C:\\Users\\Akash\\Desktop\\lseg\\lseg_Chatbot\\lseg_Chatbot.py'],
+    ['D:\\Associate\\Desktop\\UI-Chatbot\\lseg_Chatbot.py'],
     pathex=[],
     binaries=[],
     datas=[
-        ('C:\\Users\\Akash\\Desktop\\lseg\\lseg_Chatbot\\Chats.kv', '.'),
-        ('C:\\Users\\Akash\\Desktop\\lseg\\lseg_Chatbot\\resources\\', 'resources'),
+        ('D:\\Associate\\Desktop\\UI-Chatbot\\Chats.kv', '.'),
+        ('D:\\Associate\\Desktop\\UI-Chatbot\\resources\\', 'resources'),
     ],
     hiddenimports=[],
     hookspath=[kivymd_hooks_path],
@@ -58,7 +58,7 @@ exe = EXE(
 
 coll = COLLECT(
     exe,
-    Tree('C:\\Users\\Akash\\Desktop\\lseg\\lseg_Chatbot\\'),
+    Tree('D:\\Associate\\Desktop\\UI-Chatbot\\'),
     a.binaries,
     a.zipfiles,
     a.datas,

@@ -1,0 +1,8 @@
+2024-10-06 22:44:49,851 - __main__ - INFO - ############################################################
+2024-10-06 22:44:49,858 - __main__ - INFO - Stock Exchange data file read successfully!
+2024-10-06 22:44:49,859 - __main__ - INFO - Session Start Time: 06/10/2024 22:44:49
+2024-10-06 22:44:52,278 - __main__ - INFO - Stock Exchanges Displayed
+2024-10-06 22:46:19,441 - __main__ - INFO - Selected Option: London Stock Exchange
+2024-10-06 22:46:20,463 - __main__ - INFO - Stock Options Displayed
+2024-10-06 22:47:04,458 - __main__ - INFO - Selected Option: ANTOFAGASTA PLC
+2024-10-06 22:47:05,468 - __main__ - INFO - Stock Price Displayed for ANTOFAGASTA PLC - 1746.0
