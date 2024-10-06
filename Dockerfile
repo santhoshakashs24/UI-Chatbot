@@ -1,11 +1,11 @@
 # Use an official Python runtime as a parent image
 FROM python:3.10-slim
 
-# Set the working directory in the container
-WORKDIR /app
+# Set the working directory
+WORKDIR /home/associate/UI-Chatbot
 
-# Copy the current directory contents into the container at /app
-COPY . C:\Users\Akash\Desktop\lseg\Chatbot
+# Copy the current directory contents into the container at /home/associate/UI-Chatbot
+COPY . /home/associate/UI-Chatbot
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -15,12 +15,14 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     git \
     ffmpeg \
-    libsdl2 \
+    libsdl2-dev \
     libsdl2-image-dev \
+    libsdl2-mixer-dev \
     libsdl2-ttf-dev \
     libportmidi-dev \
     libswscale-dev \
     libavformat-dev \
+    libavcodec-dev \
     zlib1g-dev \
     libgstreamer1.0-0 \
     gstreamer1.0-plugins-base \
@@ -34,13 +36,16 @@ RUN apt-get update && apt-get install -y \
     gstreamer1.0-pulseaudio \
     x11-xserver-utils \
     xvfb \
-    && rm -rf /var/lib/apt/lists/*
+    xclip \
+    xsel && \
+    rm -rf /var/lib/apt/lists/*
 
 # Install any needed packages specified in requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-#Set the display environment variable
+# Set the display environment variable
 ENV DISPLAY=:99
 
-#Start Xvfb
-CMD["sh","-c" "Xvfb :99 -screen 0 1024-768-16 & python main.py"]
+# Start Xvfb and run the Kivy app
+CMD ["sh", "-c", "Xvfb :99 -screen 0 1024x768x16 & python lseg_Chatbot.py"]
+
