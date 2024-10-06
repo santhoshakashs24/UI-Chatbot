@@ -1,0 +1,157 @@
+#:import Factory kivy.factory.Factory
+
+#Styling for Command widget
+<Command>
+    size_hint_y: None
+    pos_hint: {"right": .98}
+    height: self.texture_size[1]
+    theme_text_color: "Custom"
+    text_color: 1, 1, 1, 1
+    canvas.before:
+        Color:
+            rgb: (1, 170/255, 23/255, 1)
+        RoundedRectangle:
+            size: self.width, self.height
+            pos: self.pos
+            radius: [23, 23, 0, 23]
+
+#Styling for Response widget, including bot icon
+<Response>:
+    orientation: 'horizontal'
+    size_hint_y: None
+    height: max(icon.height, content.height)
+    spacing: dp(10)
+    pos_hint: {"x": .02}
+
+    Image:
+        id: icon
+        source: root.icon_source
+        size_hint: None, None
+        size: dp(30), dp(30)
+        pos_hint: {'center_y': 0.5}
+
+    BoxLayout:
+        id: content
+        orientation: 'vertical'
+        size_hint_x: root.size_hint_x
+        size_hint_y: None
+        height: label.texture_size[1] + dp(20)
+        padding: dp(12), dp(10)
+
+        canvas.before:
+            Color:
+                rgb: 1, 1, 1, 1
+            RoundedRectangle:
+                size: self.size
+                pos: self.pos
+                radius: [dp(23), dp(23), dp(23), 0]
+
+        MDLabel:
+            id: label
+            text: root.text
+            size_hint_y: None
+            height: self.texture_size[1]
+            halign: root.halign
+            valign: 'middle'
+            font_name: root.font_name
+            font_size: root.font_size
+            text_size: self.width, None
+
+#Styling for Option widget
+<Option>
+    id: option
+    size_hint_y: None
+    pos_hint: {"x": .055}
+    size: 50, 50
+    user_font_size: "20sp"
+    theme_text_color: "Custom"
+    text_color: 1, 1, 1, 1
+    md_bg_color: 4/255, 28/255, 250/255, 1
+    on_release: app.optionSelect(self.id,self.type), root.disable_Button() #print(self.id,self.text)
+    #height: self.texture_size[1]
+    canvas.before:
+        Color:
+            rgb: (1, 1, 1, 1)
+        RoundedRectangle:
+            size: self.width, self.height
+            pos: self.pos
+            radius: [23, 23, 23, 0]
+           
+
+#Creating a New Custom Widget for Send Icon
+<TooltipMDIconButton@MDIconButton+MDTooltip>
+
+#MDScreen with complete view LSEG Header and scrolling Chat view
+MDScreen:
+    bot_name: ""
+    text_input: text_input
+    send_icon: send_icon
+    chat_list: chat_list
+    name: "chats"
+    MDFloatLayout:
+        MDFloatLayout:
+            md_bg_color: 245/255, 245/255, 245/255, 1
+            size_hint_y: .11
+            pos_hint: {"center_y": .95}
+            Image:
+                source: app.logo_source
+                size_hint: 1.5, 1.5
+                size: "40dp", "40dp"  # Adjust the size as needed
+                pos_hint: {"center_x": .5, "center_y": .5}
+    ScrollView:
+        size_hint_y: 0.77
+        pos_hint: {"x": 0, "y": .116}
+        do_scroll_x: False
+        do_scroll_y: True
+        bar_width: 10
+        effect_cls: "ScrollEffect"
+        scroll_type: ['bars', 'content']
+        BoxLayout:
+            id: chat_list
+            orientation: 'vertical'
+            size: (root.width, root.height)
+            height: self.minimum_height
+            size_hint: None, None
+            pos_hint: {'top': 10}
+            cols: 1
+            spacing: 5
+    MDFloatLayout:
+        md_bg_color: 245/255, 245/255, 245/255, 1
+        size_hint_y: .11
+        MDFloatLayout:
+            size_hint: .8, .75
+            pos_hint: {"center_x": .43, "center_y" : .5}
+            canvas:
+                Color:
+                    rgb: (238/255, 238/255, 238/255, 1)
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    radius: [23, 23, 23, 23]
+            TextInput:
+                id: text_input
+                hint_text: "Please select an option..."
+                size_hint: 1, None
+                pos_hint: {"center_x": .5, "center_y": .5}
+                font_size: "15sp"
+                height: self.minimum_height
+                multiline: False
+                on_text_validate: app.send()
+                cursor_color: 1, 170/255, 23/255, 1
+                cursor_width: "2sp"
+                foreground_Color: 1, 170/255, 23/255, 1
+                background_color: 0,0,0,0
+                padding: 15
+                font_name: "Proxima"
+                disabled: True
+        TooltipMDIconButton:
+            id: send_icon
+            icon: "send"
+            tooltip_text: 'Send'
+            pos_hint: {"center_x": 0.91, "center_y": .5}
+            user_font_size: "15sp"
+            theme_text_xolor: "Custom"
+            text_color: 1, 1, 1, 1
+            md_bg_color: 1, 170/255, 23/255, 1
+            on_release: app.send()
+            disabled: True
