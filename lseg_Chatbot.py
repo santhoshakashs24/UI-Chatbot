@@ -65,9 +65,9 @@ def mkdir_p(path):
 
 #-------------------Logging Configuration---------------------#
 logger = logging.getLogger(__name__)
-mkdir_p(f"{SCRIPT_DIR}\logs")
+mkdir_p(os.path.join(SCRIPT_DIR,'logs'))
 # create handler
-handler = TimedRotatingFileHandler(filename=SCRIPT_DIR+'\logs\lseg_chatbot.log',when='D',interval=1,backupCount=15,encoding='utf-8',delay=False)
+handler = TimedRotatingFileHandler(filename=os.path.join(SCRIPT_DIR,'resources','lseg_chatbot.log'),when='D',interval=1,backupCount=15,encoding='utf-8',delay=False)
 
 #create formatter and add to handler
 formatter = Formatter(fmt='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -83,7 +83,8 @@ logger.info("#" * 60)
 #-------------------Read Stock Data File---------------------#
 #Try to read the stock exchange data file and load it as stock_exchange_data - list of dictionary
 try:
-    with open(f'{RESOURCE_DIR}\stock_exchange_data.json','r') as file:
+    file_path = os.path.join(RESOURCE_DIR, 'stock_exchange_data.json')
+    with open(file_path,'r') as file:
         stock_exchange_data = json.load(file)
     if stock_exchange_data:
         logger.info("Stock Exchange data file read successfully!")
@@ -114,7 +115,7 @@ class Response(BoxLayout):
     halign = StringProperty()
     font_name = "Proxima"
     font_size = 24
-    icon_source = StringProperty(f'{RESOURCE_DIR}\images\chatbot.ico')
+    icon_source = StringProperty(os.path.join(RESOURCE_DIR, 'images','chatbot.ico'))
 
 # Option Class to display available option - MDFillRoundFlatButton Type with disable button option once clicked
 class Option(MDFillRoundFlatButton):
@@ -139,7 +140,7 @@ class Option(MDFillRoundFlatButton):
 
 #-------------------Main Class---------------------#
 class LsegChatbot(MDApp):
-    logo_source = StringProperty(f'{RESOURCE_DIR}\images\lseg_logo_rgb_pos.png')   #LSEG Image location
+    logo_source = StringProperty(os.path.join(RESOURCE_DIR, 'images','lseg_logo_rgb_pos.png'))  #LSEG Image location
     
     def navigationOption(self, *args):
         """Navigation Option to go back to Main Menu or previous option"""
